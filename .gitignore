@@ -1,0 +1,8 @@
+.idea/
+venv/
+voteau/voteau/migrations/
+voteau/voteau/__pycache__/
+voteau/voteau/templates/__pycache__/
+voteau/db.sqlite3
+db.sqlite3
+voteau/__pycache__/

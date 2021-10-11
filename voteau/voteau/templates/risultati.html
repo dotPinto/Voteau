@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+    <style>
+		body,
+		html {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			background: #7abecc !important;
+		}
+
+        .btn1 {
+            color: darkblue;
+            font-weight: bold;
+            margin-bottom: 10px;
+            margin-top: 20px;
+            height: 30px;
+            width: 100%;
+            min-width: 200px;
+            border-style: solid;
+            border-radius: 12px;
+        }
+
+        .btn1:active {
+          color: dodgerblue;
+          box-shadow: 0 2px #666;
+          transform: translateY(1px);
+        }
+
+        .wrapper {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 20px;
+            grid-auto-rows: 100px;
+            grid-template-areas:
+            "a b c d e";
+            align-items: start;
+        }
+
+        .wrapperVotation {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 20px;
+            grid-template-areas:
+            "a b c d e"
+            "f g h i l";
+            grid-auto-rows: 200px;
+            align-items: start;
+        }
+
+        .divVot{
+            border-width: 2px;
+            font-weight: bold;
+            margin-top: 20%;
+            border-style: wave;
+            border-radius: 12px;
+            border-color: black;
+            transition-duration: 0.4s;
+            width: 160px;
+            height: 160px;
+            overflow: hidden ;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .divVot:hover {
+            background-color: #74cfbf;
+            color: white;
+        }
+
+        .divisore1{
+            grid-area: a;
+            margin-right: 10px;
+        }
+
+        .divisore2{
+            grid-area: b;
+            margin-right: 10px;
+        }
+
+        .divisore3{
+            grid-area: c;
+            margin-right: 10px;
+        }
+
+        .divisore4{
+            grid-area: d;
+            margin-right: 10px;
+        }
+
+        .divisore5{
+            grid-area: e;
+            margin-right: 10px;
+        }
+
+    </style>
+
+</head>
+<body>
+    <header style="width: 100%; background-color: white">
+            <nav class="d-flex justify-content-center container" style="display: flex; overflow: auto;">
+                <div class="divisore1">
+                <a href="{% url 'home' %}"><button class="btn1" type="button">Home</button></a>
+                </div>
+<!--                <div class="divisore1">-->
+<!--                <a href="{% url 'addvotation' %}"><button class="btn1" type="button">Aggiungi Votazione</button></a>-->
+<!--                </div>-->
+<!--                <div class="divisore2">-->
+<!--                <a href="{% url 'delvotations' %}"><button class="btn1" type="button">Rimuovi Votazione</button></a>-->
+<!--                </div>-->
+<!--                <div class="divisore3">-->
+<!--                <a href="{% url 'vote' %}"><button class="btn1" type="button">Vota</button></a>-->
+<!--                </div>-->
+<!--                <div class="divisore5">-->
+<!--                <a href="{% url 'logout' %}"><button class="btn1" type="button">Logout</button></a>-->
+<!--                </div>-->
+            </nav>
+    </header>
+
+    <div class="container">
+        <h1>Ciao, {{user.username}}</h1>
+        <h3>Votazioni concluse:</h3>
+        <div class="wrapperVotation">
+            {% for votation in votations %}
+                <a href="{% url 'esito' votation.id %}" style="width: 160px"><button class="divVot" >{{votation.nome}}</button></a>
+                <div></div>
+            {% endfor %}
+
+        </div>
+{% if messages %}
+    {% for message in messages %}
+        <ul>
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} <li><br><p style="display: flex;justify-content: center; font-weight: bold; color: red"> {{ message }} </p>
+        {%else%}
+        <li><p style="font-size: larger; display: flex;justify-content: left; font-weight: bold;"> {{ message }} </p>
+        {% endif %}
+        </ul>
+    {% endfor %}
+{% endif %}
+    </div>
+</body>
+</html>

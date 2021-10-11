@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+    <style>
+		body,
+		html {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+            justify-content: center;
+            display: flex;
+			background: #7abecc !important;
+		}
+        .btn1 {
+            color: blue;
+            font-weight: bold;
+            margin-top: 10px;
+            margin-right: 20px;
+            margin-bottom: 10px;
+            width: 200px;
+            border-style: wave;
+            border-radius: 12px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+        }
+        .divVot{
+            border-width: 2px;
+            font-weight: bold;
+            margin-top: 20%;
+            border-style: wave;
+            border-radius: 12px;
+            border-color: black;
+            transition-duration: 0.4s;
+            width: 160px;
+            height: 160px;
+            overflow: hidden ;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+         .title{
+            font-size: 40px;
+            font-family: Arial;
+            font-weight: bold;
+        }
+        .divVot:hover {
+            background-color: #74cfbf;
+            color: white;
+        }
+
+        .wrapper {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 20px;
+            grid-auto-rows: 100px;
+            grid-template-areas:
+            "a b c d e";
+            align-items: start;
+        }
+
+        .wrapperVotation {
+            display: block;
+            width:  70vw;
+
+        }
+
+        p.quesito{
+
+            width: 100%;
+            height: auto;
+            font-size: 22pt;
+            margin-left: 5px;
+            margin-right: 5px;
+            margin-top: 20px;
+            font-weight: bolder;
+        }
+         .Confirm{
+            margin-top: 25px;
+            width: 200px;
+            height: 50px;
+            background-color: indianred;
+            border-style: wave;
+            border-radius: 12px;
+            justify-content: center;
+        }
+    </style>
+
+</head>
+<body>
+    <div style="justify-content: center;align-content: center">
+        <h1 class="title" style="text-align: center">Scegli un quesito per rimuoverlo:</h1>
+        <div id = "wrapper" class="wrapperVotation">
+            {% for quesito in quesiti %}
+                <div style="width:100%;border-width:3pt; border-color:black;border-style: solid;margin-top: 50px;text-align: center; background-color: white;align-self: center">
+                    <p class="quesito">{{quesito.quesito}}</p>
+                </div>
+                <div style="display: flex; justify-content: center">
+                    <a href="{% url 'removeques' id_q=quesito.id %}" ><button class="Confirm" >Elimina</button></a>
+                </div>
+            {% endfor %}
+        </div>
+        {% if quesiti|length > 0 %}
+            <div style="display: flex;justify-content: center;">
+                <a href="{% url 'home' %}">
+                   <input type="button" class="Confirm" value="Torna alla Home" style="background-color: forestgreen"/>
+                </a>
+
+            </div>
+        {%else%}
+            <h2 style="margin-top: 10%;margin-bottom: 30px; text-align: center">Nessun quesito presente, aggiungine uno!</h2>
+
+            <div style="display: flex;justify-content: space-evenly;">
+                <a href="{% url 'home' %}">
+                   <input type="button" class="Confirm" value="Torna alla Home" style="background-color: forestgreen;"/>
+                </a>
+            </div>
+    </div>
+    {% endif %}
+
+    {% for message in messages%}
+        <p>{{message}}</p>
+    {% endfor %}
+</body>
+<script>
+
+
+</script>
+</html>

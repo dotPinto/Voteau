@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aggiungi Partecipante</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+    <style>
+		body,
+		html {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			background: #7abecc !important;
+		}
+        .Confirm{
+            margin-top: 25px;
+            margin-right: 25px;
+            width: 200px;
+            height: 50px;
+            background-color: forestgreen;
+            border-style: wave;
+            border-radius: 12px;
+            justify-content: center;
+        }
+        .btn1 {
+            color: blue;
+            font-weight: bold;
+            margin-top: 10px;
+            margin-right: 20px;
+            margin-bottom: 10px;
+            width: 200px;
+            border-style: wave;
+            border-radius: 12px;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: auto;
+            grid-template-rows: auto;
+            grid-template-areas:
+              "a b c d";
+        }
+        .divVot{
+            border-width: 2px;
+            font-weight: bold;
+            margin-top: 20%;
+            border-style: wave;
+            border-radius: 12px;
+            border-color: black;
+            transition-duration: 0.4s;
+            width: 160px;
+            height: 160px;
+            overflow: hidden ;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+         .title{
+            font-size: 40px;
+            font-family: Arial;
+            font-weight: bold;
+        }
+        .divVot:hover {
+            background-color: #74cfbf;
+            color: white;
+        }
+    </style>
+
+</head>
+<body>
+
+<br>
+<h1 class="title" style="text-align: center">Aggiungi dei partecipanti alla votazione '{{votation.nome}}':</h1>
+        <div class="container">
+            {% for utente in utenti %}
+                {% if votation.autore.id != utente.id%}
+                <div>
+                    <a href="{% url 'addpart' votation.id utente.id votation.autore.id%}" style="width: 160px"><button class="divVot" >{{utente.username}}</button></a>
+                </div>
+                {% endif %}
+
+            {% endfor %}
+        </div>
+        {% if utenti|length > 1 %}
+            <div style="display: flex;justify-content: center;">
+                <a href="{% url 'home' %}">
+                   <input type="button" class="Confirm" value="Torna alla Home" style="background-color: indianred"/>
+                </a>
+            </div>
+        {%else%}
+            <h2 style="margin-top: 10%;margin-bottom: 30px; text-align: center">Nessun partecipante selezionabile!</h2>
+            <div style="display: flex;justify-content: space-evenly;">
+                <a href="{% url 'home' %}">
+                    <input type="button" class="Confirm" value="Torna alla Home" style="background-color: indianred"/>
+                </a>
+            </div>
+        {% endif %}
+
+<!--{% for message in messages%}-->
+<!--    <br>-->
+<!--    <p style="display: flex;justify-content: center; font-weight: bold;">{{message}}</p>-->
+<!--{% endfor %}-->
+
+{% if messages %}
+    {% for message in messages %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} <br><p style="display: flex;justify-content: center; font-weight: bold; color: red"> {{ message }} </p>
+        {%else%}
+        <br><p style="display: flex;justify-content: center; font-weight: bold;"> {{ message }} </p>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+
+</body>
+<script>
+
+
+</script>
+</html>
